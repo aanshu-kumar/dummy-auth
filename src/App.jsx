@@ -1,7 +1,8 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Link } from "react-router-dom";
 import "./App.css";
 import Profile from "./components/Profile";
 import Login from "./components/Login";
+import ProtectedRoute from "./components/ProtectedRoute"; // Create this file
 
 function App() {
   return (
@@ -10,16 +11,16 @@ function App() {
         <h2>Header</h2>
         <ul className="flex items-center justify-center space-x-4">
           <li>
-            <a href="/">Login</a>
+            <Link to="/">Login</Link>
           </li>
           <li>
-            <a href="/profile">Profile</a>
+            <Link to="/profile">Profile</Link>
           </li>
         </ul>
       </nav>
       <Routes>
-        <Route path="/profile" element={<Profile />} />
         <Route path="/" element={<Login />} />
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
       </Routes>
     </>
   );

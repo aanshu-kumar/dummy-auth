@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(true); // Loading state
-  let navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedData = localStorage.getItem("data");
@@ -17,7 +17,7 @@ const Profile = () => {
             .then((res) => res.json())
             .then((data) => {
               setUserData(data);
-              setLoading(false); // Set loading to false after fetching
+              setLoading(false);
             })
             .catch((error) => {
               console.error("Fetch error:", error);
@@ -36,19 +36,23 @@ const Profile = () => {
       setLoading(false);
       navigate("/");
     }
-  }, []);
+  }, [navigate]); // ✅ Added `navigate` to the dependency array
+
   const handleLogout = () => {
-    localStorage.clear();
+    localStorage.removeItem("data"); // ✅ Remove only login data
     navigate("/");
   };
+
   return (
     <div className="mx-10">
       <h1 className="text-5xl mt-5">Profile</h1>
       <div className="flex items-center flex-col gap-10">
         {loading ? (
           <div className="loader"></div>
-        ) : (
+        ) : userData ? (
           <ProfileCard data={userData} />
+        ) : (
+          <p className="text-red-500">User data not available.</p>
         )}
         <button
           onClick={handleLogout}
