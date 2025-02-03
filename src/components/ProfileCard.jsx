@@ -1,6 +1,11 @@
 import React from "react";
 
 const ProfileCard = ({ data }) => {
+  
+  if (!data) {
+    return <p>No user data available.</p>;
+  }
+  
   return (
     <div className="w-2/3  flex flex-col">
       <div className=" bg-gray-900 border-2 border-gray-800 rounded-2xl p-10 w-full flex gap-6  ">
