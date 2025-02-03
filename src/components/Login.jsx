@@ -6,16 +6,15 @@ const Login = () => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [message, setMessage] = useState("");
-  useEffect(()=>{
-    if(localStorage.getItem("data"))
-      {
-          navigate("/profile")
-      }
-  },[])
-  
+  useEffect(() => {
+    if (localStorage.getItem("data")) {
+      navigate("/profile");
+    }
+  }, []);
+
   function createLogin() {
     setMessage("loading");
-    
+
     fetch("https://dummyjson.com/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -36,6 +35,7 @@ const Login = () => {
       })
       .then((data) => {
         let UserData = { token: data.accessToken, id: data.id };
+        if(message=="Login Success")
         localStorage.setItem("data", JSON.stringify(UserData));
       });
   }

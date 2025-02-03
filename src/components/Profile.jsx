@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(true);  // Loading state
+  const [loading, setLoading] = useState(true); // Loading state
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -34,22 +34,28 @@ const Profile = () => {
     } else {
       console.warn("No data found in local storage.");
       setLoading(false);
-      navigate("/")
+      navigate("/");
     }
   }, []);
-  const handleLogout= ()=>{
+  const handleLogout = () => {
     localStorage.clear();
-    navigate("/")
-
-  }
+    navigate("/");
+  };
   return (
     <div className="mx-10">
       <h1 className="text-5xl mt-5">Profile</h1>
       <div className="flex items-center flex-col gap-10">
-        {loading ? <div className="loader"></div> : <ProfileCard data={userData} />}
-        <button onClick={handleLogout} className="w-32 font-bold hover:bg-white duration-200 bg-amber-300 text-black px-10 py-4 rounded-2xl my-10">Logout</button>
+        {loading ? (
+          <div className="loader"></div>
+        ) : (
+          <ProfileCard data={userData} />
+        )}
+        <button
+          onClick={handleLogout}
+          className="w-32 font-bold hover:bg-white duration-200 bg-amber-300 text-black px-10 py-4 rounded-2xl my-10">
+          Logout
+        </button>
       </div>
-      
     </div>
   );
 };
